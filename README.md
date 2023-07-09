@@ -3,7 +3,8 @@
 //Simple forex news trading Expert Advisor made with mql5
 
 requirements : MT5 for windows / mac / linux and a broker which accept Experts Advisors
-
+kfvgkfvkf
+gggggggg
 Download this 2 files, navigate to your download folder then copy those 2 files.
 Open MT5, click on file >> Open Data Folder >> MQL 5 >> Experts then paste the 2 files 
 
