@@ -8,7 +8,7 @@ The EA will help you to send orders before 15:30. 10 seconds before is best so t
 
 requirements : MT5/MT4 for windows / mac / linux and a broker which accept Experts Advisors.
     
-Download 2 files of the same type (mq4&ex4 or mq5&ex5), navigate to your download folder then copy those 2 files.
+Download 2 files of the same type from this repository,mq4&ex4 for metatrader 4 or mq5 & ex5 for metatrader 5), navigate to your download folder then copy those 2 files.
   Open MT5/MT4, click on 
 
 MT5 : file >> Open Data Folder >> MQL 5 >> Experts then paste the 2 files.
