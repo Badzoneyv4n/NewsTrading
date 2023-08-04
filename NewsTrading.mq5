@@ -23,6 +23,7 @@ CTrade trade;
 input string StartTime = "05:29:50"; //Time to place trades
 input string Pipdiff = "5"; //Pip difference
 input string TargetProfit = "10"; //Target Profit in pips
+input string StopLoss = "0"; //Stop Loss in pips
 input int Number_trades = 0;//How many trades 0 = 2trades, 2= 4 trades, 4 = 6 trades
 input int rsk = 1;//Risk 1% or 2% Per trade
 
@@ -77,8 +78,8 @@ void OnTick()
       //Open stop orders of opposite directions
       if((OrdersTotal() <= Number_trades) && NowTimeL == SecHandler(i))
         {
-         trade.SellStop(LotCal(), Entry("sell"),NULL,0,Tp("sell"),ORDER_TIME_GTC,0,NULL);
-         trade.BuyStop(LotCal(),Entry("buy"),NULL,0,Tp("buy"),ORDER_TIME_GTC,0,NULL);
+         trade.SellStop(LotCal(), Entry("sell"),NULL,SL("sell"),Tp("sell"),ORDER_TIME_GTC,0,NULL);
+         trade.BuyStop(LotCal(),Entry("buy"),NULL,SL("buy"),Tp("buy"),ORDER_TIME_GTC,0,NULL);
          break;
         }
      }
@@ -350,3 +351,37 @@ double Tp(string type2)
    return target;
   }
 // End of Tp()
+
+//+------------------------------------------------------------------+
+//|              CALCULATE THE STOPLOSS                              |
+//+------------------------------------------------------------------+
+double SL(string type)
+  {
+   double dec,sl=0;
+   double pips = StringToDouble(Pipdiff) + StringToDouble(StopLoss); //convert Pipdiff & StopLoss to string
+
+//Get the digits for converting pips
+   if((_Digits == 2) || (_Digits == 3))
+      dec = pips/100; // For 2 / 3 digits Currency pairs with
+   else
+      dec = pips/10000; // For all other 5 digits currenciens
+
+//If the value of parameter "type"
+
+   if(type == "buy")
+     {
+      sl =+ NormalizeDouble((Ask - dec),_Digits); // return Buy StopLoss price
+     }
+   else
+      if(type == "sell")
+        {
+         sl =+ NormalizeDouble((Bid + dec),_Digits); // return Sell StopLoss price
+        }
+      else
+        {
+         Print("Failed to get the entry point");
+        }
+
+
+   return sl;
+  }
